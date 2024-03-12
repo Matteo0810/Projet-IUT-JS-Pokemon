@@ -17,10 +17,17 @@ class Pokemon {
 
     getAttack() {
         const moves = pokemon_moves
+<<<<<<< HEAD
             .find(({ pokemon_id }) => pokemon_id === this.pokemonId)
             .reduce((pc, { charged_moves, fast_moves, elite_charged_moves, elite_fast_moves }) =>
                 pc.push(...[...charged_moves, ...fast_moves, ...elite_charged_moves, ...elite_fast_moves])
                 , []);
+=======
+            .find(({pokemon_id}) => pokemon_id === this.pokemonId)
+            .reduce((pc, { charged_moves, fast_moves, elite_charged_moves, elite_fast_moves }) => 
+                pc.push(...new Set([...charged_moves, ...fast_moves, ...elite_charged_moves, ...elite_fast_moves]))
+            , []);
+>>>>>>> a697be4cec84aea030b53b6da82625c4e954187c
 
         return moves.map(move =>
             Object.values(Attack.all_attacks)
