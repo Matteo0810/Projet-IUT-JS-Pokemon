@@ -1,0 +1,6 @@
+# for mac os only
+.DS_Store
+
+# ignore ide
+.vscode/*
+.idea/*
