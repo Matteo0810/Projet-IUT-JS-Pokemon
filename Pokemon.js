@@ -2,7 +2,7 @@ class Pokemon {
 
     static all_pokemons = new Map();
 
-    constructor({pokemon_id, pokemon_name, form, base_attack, base_defense, base_stamina}) {
+    constructor({ pokemon_id, pokemon_name, form, base_attack, base_defense, base_stamina }) {
         this._pokemonId = pokemon_id;
         this._pokemonName = pokemon_name;
         this._form = form;
@@ -17,16 +17,20 @@ class Pokemon {
 
     getAttack() {
         const moves = pokemon_moves
-            .find(({pokemon_id}) => pokemon_id === this.pokemonId)
-            .reduce((pc, { charged_moves, fast_moves, elite_charged_moves, elite_fast_moves }) => 
+            .find(({ pokemon_id }) => pokemon_id === this.pokemonId)
+            .reduce((pc, { charged_moves, fast_moves, elite_charged_moves, elite_fast_moves }) =>
                 pc.push(...[...charged_moves, ...fast_moves, ...elite_charged_moves, ...elite_fast_moves])
-            , []);
+                , []);
 
-        return moves.map(move => 
+        return moves.map(move =>
             Object.values(Attack.all_attacks)
                 .find(attack => attack.name === move)
         );
-    }    
+    }
+
+    getTypes() {
+
+    }
 
     toString() {
         return JSON.stringify({
@@ -46,11 +50,21 @@ class Pokemon {
  */
 function import_pokemon() {
     pokemons
-        .filter(({form}) => form === "Normal")
+        .filter(({ form }) => form === "Normal")
         .forEach(pokemon => {
             Pokemon.all_pokemons.set(
-                pokemon.pokemon_id, 
+                pokemon.pokemon_id,
                 new Pokemon(pokemon)
+            );
+
+        });
+
+    pokemon_types
+        .filter(({ form }) => form === "Normal")
+        .forEach(pokemon => {
+            Type.all_type.set(
+                pokemon_types.type,
+                new Type(pokemon)
             );
         });
 }
