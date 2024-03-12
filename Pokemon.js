@@ -19,7 +19,7 @@ class Pokemon {
         const moves = pokemon_moves
             .find(({pokemon_id}) => pokemon_id === this.pokemonId)
             .reduce((pc, { charged_moves, fast_moves, elite_charged_moves, elite_fast_moves }) => 
-                pc.push(...[...charged_moves, ...fast_moves, ...elite_charged_moves, ...elite_fast_moves])
+                pc.push(...new Set([...charged_moves, ...fast_moves, ...elite_charged_moves, ...elite_fast_moves]))
             , []);
 
         return moves.map(move => 
