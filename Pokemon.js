@@ -11,33 +11,22 @@ class Pokemon {
         this._base_stamina = base_stamina;
     }
 
-    // get getPokemonId() {
-    //     return this._pokemonId;
-    // }
+    get pokemonId() {
+        return this._pokemonId;
+    }
 
-    // get getPokemonName() {
-    //     return this._pokemonName;
-    // }
+    getAttack() {
+        const moves = pokemon_moves
+            .find(({pokemon_id}) => pokemon_id === this.pokemonId)
+            .reduce((pc, { charged_moves, fast_moves, elite_charged_moves, elite_fast_moves }) => 
+                pc.push(...[...charged_moves, ...fast_moves, ...elite_charged_moves, ...elite_fast_moves])
+            , []);
 
-    // get getForm() {
-    //     return this._form;
-    // }
-
-    // get getBaseAttack() {
-    //     return this._base_attack;
-    // }
-
-    // get getBaseDefense() {
-    //     return this._base_defense;
-    // }
-    
-    // get getBaseStamina() {
-    //     return this._base_stamina;
-    // }
-
-    // set pokemonId(pokemonId) {
-    //     this._pokemonId = pokemonId;
-    // }
+        return moves.map(move => 
+            Object.values(Attack.all_attacks)
+                .find(attack => attack.name === move)
+        );
+    }    
 
     toString() {
         return JSON.stringify({
@@ -58,10 +47,10 @@ class Pokemon {
 function import_pokemon() {
     pokemons
         .filter(({form}) => form === "Normal")
-        .forEach(pokemon =>
+        .forEach(pokemon => {
             Pokemon.all_pokemons.set(
                 pokemon.pokemon_id, 
                 new Pokemon(pokemon)
-            )
-        );
+            );
+        });
 }

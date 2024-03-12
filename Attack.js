@@ -13,6 +13,10 @@ class Attack {
         this._criticalChange = critical_chance;
     }
 
+    get name() {
+        return this._name;
+    }
+
     toString() {
         return JSON.stringify({
             moveId: this._moveId,
