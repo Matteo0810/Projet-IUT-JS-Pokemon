@@ -21,7 +21,6 @@ class Pokemon {
             .reduce((pc, { charged_moves, fast_moves, elite_charged_moves, elite_fast_moves }) => 
                 pc.push(...new Set([...charged_moves, ...fast_moves, ...elite_charged_moves, ...elite_fast_moves]))
             , []);
-
         return moves.map(move =>
             Object.values(Attack.all_attacks)
                 .find(attack => attack.name === move)
