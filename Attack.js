@@ -31,13 +31,3 @@ class Attack {
     }
 
 }
-
-function import_attacks() {
-    [...charged_moves, ...fast_moves]   
-        .forEach(move => {
-            Attack.all_attacks.set(
-                move.moveId,
-                new Attack(move)
-            );
-        });
-}
