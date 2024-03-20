@@ -49,7 +49,24 @@ function getStrongestEnemies(attack) {
 }
 
 function getBestAttackTypesForEnemy(name) {
-    // @todo
+    let efficacite;
+    let typePok = Object.values(Pokemon.all_pokemons).find(pokemon => pokemon.name === name).getTypes();
+
+    return Object.values(Attack.all_attacks)
+        .filter(attack => {
+            if (typePok.length > 1) {
+                efficacite = Type.efficaciteType(typePok[0].type, attack.type);
+                efficacite = efficacite * Type.efficaciteType(typePok[1].type, attack.type);
+            } else {
+                efficacite = Type.efficaciteType(typePok.type, attack.type);
+            }
+
+            if (efficacite > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        });
 }
 
 /* TESTS */
@@ -75,4 +92,4 @@ console.log("Get weakest enemies:");
 console.table(getWeakestEnemies(Attack.all_attacks["Power Whip"]));
 
 console.log("Get strongest enemies:");
-console.table(getStrongestEnemies(Attack.all_attacks["Tackle"]));
+console.table(getBestAttackTypesForEnemy(Pokemon.all_pokemons["Pikachu"]));
