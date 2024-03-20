@@ -42,10 +42,23 @@ function getStrongestEnemies(attack) {
 import_pokemon();
 
 
-console.log("Pokemon by type: ", getPokemonsByType("Bug"));
-console.log("Pokemon by attack:", getPokemonsByAttack("Tackle"));
-console.log("Attack by type: ", getAttackByType("Bug"));
-console.log("Sort by pokemon name: ", sortPokemonByName());
-console.log("Sort by pokemon stamina: ", sortPokemonByStamina());
-console.log("Get weakest enemies: ", getWeakestEnemies(Attack.all_attacks["Power Whip"]));
-console.log("Get strongest enemies: ", getStrongestEnemies(Attack.all_attacks["Tackle"]));
+console.log("Get pokemon by type 'Bug':");
+console.table(getPokemonsByType("Bug"));
+
+console.log("Get pokemons by attack 'Tackle':");
+console.table(getPokemonsByAttack("Tackle"));
+
+console.log("Get attack by type 'Bug':");
+console.table(getAttackByType("Bug"));
+
+console.log("Sort pokemon by name:");
+console.table(sortPokemonByName());
+
+console.log("Sort pokemon by stamina:");
+console.table(sortPokemonByStamina());
+
+console.log("Get weakest enemies:");
+console.table(getWeakestEnemies(Attack.all_attacks["Power Whip"]));
+
+console.log("Get strongest enemies:");
+console.table(getStrongestEnemies(Attack.all_attacks["Tackle"]));
