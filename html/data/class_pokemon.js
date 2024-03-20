@@ -116,3 +116,6 @@ function import_pokemon() {
             )
         });
 }
+
+// import pokemon list
+import_pokemon();

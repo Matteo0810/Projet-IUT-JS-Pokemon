@@ -53,9 +53,6 @@ function getBestAttackTypesForEnemy(name) {
     // @todo
 }
 
-// import pokemon list
-import_pokemon();
-
 // List of tests
 const TESTS = [
     {
