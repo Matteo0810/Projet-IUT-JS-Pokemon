@@ -50,7 +50,24 @@ function getStrongestEnemies(attack) {
 }
 
 function getBestAttackTypesForEnemy(name) {
-    // @todo
+    let efficacite;
+    let typePok = Object.values(Pokemon.all_pokemons).find(pokemon => pokemon.name === name).getTypes();
+
+    return Object.values(Attack.all_attacks)
+        .filter(attack => {
+            if (typePok.length > 1) {
+                efficacite = Type.efficaciteType(typePok[0].type, attack.type);
+                efficacite = efficacite * Type.efficaciteType(typePok[1].type, attack.type);
+            } else {
+                efficacite = Type.efficaciteType(typePok.type, attack.type);
+            }
+
+            if (efficacite > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        });
 }
 
 // List of tests
@@ -97,8 +114,8 @@ const TESTS = [
         name: "Récupérer les enemies les plus faibles pour une attaque",
         action: () => {
             const attackName = prompt("Nom de l'attaque");
-            const attack  = Attack.all_attacks[attackName];
-            if(!attack)
+            const attack = Attack.all_attacks[attackName];
+            if (!attack)
                 return alert("Attaque introuvable.");
             console.log(`Récupérer les enemies les plus faibles pour l'attaque ${attack.names}`)
             console.table(getWeakestEnemies(attack));
@@ -116,11 +133,11 @@ const TESTS = [
 
 // test integration automatisation 
 const testsField = document.getElementById("tests");
-TESTS.forEach(({name, action}, index) => {
+TESTS.forEach(({ name, action }, index) => {
     const aElement = document.createElement("a");
     const liElement = document.createElement("li");
 
-    aElement.textContent = `${index+1} - ${name}`;
+    aElement.textContent = `${index + 1} - ${name}`;
     aElement.onclick = action;
     liElement.append(aElement);
     testsField.append(liElement);
