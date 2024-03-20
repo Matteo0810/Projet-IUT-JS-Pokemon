@@ -19,10 +19,24 @@ function sortPokemonByStamina() {
         .sort((a, b) => b.baseStamina - a.baseStamina);
 }
 function getWeakestEnemies(attack) {
-    Object.values(Pokemon.all_pokemons)
-        .filter(pokemon =>
-            pokemon.getTypes()
-        )
+    let efficacite;
+    return Object.values(Pokemon.all_pokemons)
+        .filter(pokemon => {
+            pokType = pokemon.getTypes()
+            if (pokType.length > 1) {
+                efficacite = Type.efficaciteType(pokType[0].type, attack.type);
+                efficacite = efficacite * Type.efficaciteType(pokType[1].type, attack.type);
+            }
+            else {
+                efficacite = Type.efficaciteType(pokType[0].type, attack.type);
+            }
+
+            if (efficacite > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        });
 }
 function getStrongestEnemies(attack) {
     return Object.values(Pokemon.all_pokemons)
