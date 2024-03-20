@@ -37,6 +37,9 @@ function getStrongestEnemies(attack) {
         )
 }
 
+function getBestAttackTypesForEnemy(name) {
+    // @todo
+}
 
 /* TESTS */
 import_pokemon();
