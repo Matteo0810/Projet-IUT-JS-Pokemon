@@ -1,3 +1,4 @@
+// test methods
 function getPokemonsByType(typeName) {
     return Object.values(Pokemon.all_pokemons)
         .filter(pokemon => pokemon.getTypes().find(t => t.type === typeName))
@@ -69,27 +70,78 @@ function getBestAttackTypesForEnemy(name) {
         });
 }
 
-/* TESTS */
+// import pokemon list
 import_pokemon();
 
+// List of tests
+const TESTS = [
+    {
+        name: "Récupérer un pokemon par type",
+        action: () => {
+            const type = prompt("Entrer le nom du type");
+            console.log(`Liste des pokemons pour le type ${type}`)
+            console.table(getPokemonsByType(type));
+        }
+    },
+    {
+        name: "Récupérer les pokemons par une attaque",
+        action: () => {
+            const attack = prompt("Entrer le nom de l'attaque");
+            console.log(`Liste des pokemons pour l'attaque ${attack}`)
+            console.table(getPokemonsByAttack(attack));
+        }
+    },
+    {
+        name: "Récupérer les attaques par le type",
+        action: () => {
+            const type = prompt("Entrer le nom du type");
+            console.log(`Liste des attaques pour le type ${type}`)
+            console.table(getAttackByType(attack));
+        }
+    },
+    {
+        name: "Trier les pokemons par le name",
+        action: () => {
+            console.log('Trier les pokemons par le name')
+            console.table(sortPokemonByName());
+        }
+    },
+    {
+        name: "Trier les pokemons par leur stamina",
+        action: () => {
+            console.log('Trier les pokemons par leur stamina')
+            console.table(sortPokemonByStamina());
+        }
+    },
+    {
+        name: "Récupérer les enemies les plus faibles pour une attaque",
+        action: () => {
+            const attackName = prompt("Nom de l'attaque");
+            const attack = Attack.all_attacks[attackName];
+            if (!attack)
+                return alert("Attaque introuvable.");
+            console.log(`Récupérer les enemies les plus faibles pour l'attaque ${attack.names}`)
+            console.table(getWeakestEnemies(attack));
+        }
+    },
+    {
+        name: "Récupérer les meilleures types d'attaque pour un pokemon",
+        action: () => {
+            const pokemonName = prompt("Entrer le nom du pokemon");
+            console.log(`Meilleures type d'attaque pour ${pokemonName}`);
+            console.table(getBestAttackTypesForEnemy(pokemonName));
+        }
+    }
+];
 
-console.log("Get pokemon by type 'Bug':");
-console.table(getPokemonsByType("Bug"));
+// test integration automatisation 
+const testsField = document.getElementById("tests");
+TESTS.forEach(({ name, action }, index) => {
+    const aElement = document.createElement("a");
+    const liElement = document.createElement("li");
 
-console.log("Get pokemons by attack 'Tackle':");
-console.table(getPokemonsByAttack("Tackle"));
-
-console.log("Get attack by type 'Bug':");
-console.table(getAttackByType("Bug"));
-
-console.log("Sort pokemon by name:");
-console.table(sortPokemonByName());
-
-console.log("Sort pokemon by stamina:");
-console.table(sortPokemonByStamina());
-
-console.log("Get weakest enemies:");
-console.table(getWeakestEnemies(Attack.all_attacks["Power Whip"]));
-
-console.log("Get strongest enemies:");
-console.table(getBestAttackTypesForEnemy(Pokemon.all_pokemons["Pikachu"]));
+    aElement.textContent = `${index + 1} - ${name}`;
+    aElement.onclick = action;
+    liElement.append(aElement);
+    testsField.append(liElement);
+});

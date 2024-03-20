@@ -31,6 +31,3 @@ class Type {
     }
 
 }
-
-let type = new Type(pokemon_types[0].type[0]);
-console.log(Type.efficaciteType("Bug", "Dark"));
