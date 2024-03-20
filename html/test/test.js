@@ -7,7 +7,7 @@ function getPokemonsByAttack(attackName) {
         .filter(pokemon => pokemon.getAttacks().find(a => a.name == attackName))
 }
 function getAttackByType(typeName) {
-    return Object.values(Attack.all_attacks)   
+    return Object.values(Attack.all_attacks)
         .filter(attack => attack.type === typeName);
 }
 function sortPokemonByName() {
@@ -19,20 +19,17 @@ function sortPokemonByStamina() {
         .sort((a, b) => b.baseStamina - a.baseStamina);
 }
 function getWeakestEnemies(attack) {
-    return Object.values(Pokemon.all_pokemons)
+    Object.values(Pokemon.all_pokemons)
         .filter(pokemon =>
-            pokemon.getAttacks()
-                .some(a => 
-                    Type.efficaciteType(a.type, attack.type) < 1
-                )
+            pokemon.getTypes()
         )
 }
 function getStrongestEnemies(attack) {
     return Object.values(Pokemon.all_pokemons)
         .filter(pokemon =>
             pokemon.getAttacks()
-                .some(a => 
-                    Type.efficaciteType(a.type, attack.type) > 1
+                .some(a =>
+                    Type.efficaciteType(a.type, attack.type) < 1
                 )
         )
 }
