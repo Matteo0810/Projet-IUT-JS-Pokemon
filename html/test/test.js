@@ -20,53 +20,28 @@ function sortPokemonByStamina() {
         .sort((a, b) => b.baseStamina - a.baseStamina);
 }
 function getWeakestEnemies(attack) {
-    let efficacite;
     return Object.values(Pokemon.all_pokemons)
         .filter(pokemon => {
-            pokType = pokemon.getTypes()
-            if (pokType.length > 1) {
-                efficacite = Type.efficaciteType(pokType[0].type, attack.type);
-                efficacite = efficacite * Type.efficaciteType(pokType[1].type, attack.type);
-            }
-            else {
-                efficacite = Type.efficaciteType(pokType[0].type, attack.type);
-            }
-
-            if (efficacite > 1) {
-                return true;
-            } else {
-                return false;
-            }
+            const types = pokemon.getTypes();
+            const efficacite = types.reduce((pc, cv) => {
+                pc = pc * Type.efficaciteType(attack.type, cv.type);
+                return pc;
+            }, 1);
+            return efficacite > 1;
         });
-}
-function getStrongestEnemies(attack) {
-    return Object.values(Pokemon.all_pokemons)
-        .filter(pokemon =>
-            pokemon.getAttacks()
-                .some(a =>
-                    Type.efficaciteType(a.type, attack.type) < 1
-                )
-        )
 }
 
 function getBestAttackTypesForEnemy(name) {
-    let efficacite;
-    let typePok = Object.values(Pokemon.all_pokemons).find(pokemon => pokemon.name === name).getTypes();
+    const pokemon = Object.values(Pokemon.all_pokemons).find(pokemon => pokemon.pokemonName === name);
+    const typePok = pokemon?.getTypes() ?? [];
 
     return Object.values(Attack.all_attacks)
         .filter(attack => {
-            if (typePok.length > 1) {
-                efficacite = Type.efficaciteType(typePok[0].type, attack.type);
-                efficacite = efficacite * Type.efficaciteType(typePok[1].type, attack.type);
-            } else {
-                efficacite = Type.efficaciteType(typePok.type, attack.type);
-            }
-
-            if (efficacite > 1) {
-                return true;
-            } else {
-                return false;
-            }
+            const efficacite = typePok.reduce((pc, cv) => {
+                pc = pc * Type.efficaciteType(attack.type, cv.type);
+                return pc;
+            }, 1);
+            return efficacite > 1;
         });
 }
 

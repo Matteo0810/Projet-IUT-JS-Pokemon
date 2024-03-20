@@ -2,13 +2,13 @@ class Attack {
 
     static all_attacks = {};
 
-    constructor({ name, power, type, stamina_loss_scaler, move_id, energy_data, duration, critical_chance = 0 }) {
+    constructor({ name, power, type, stamina_loss_scaler, move_id, energy_delta, duration, critical_chance = 0 }) {
         this._moveId = move_id;
         this._name = name;
         this._power = power;
         this._type = type;
         this._staminaLossScaler = stamina_loss_scaler;
-        this._energyData = energy_data;
+        this._energyDelta = energy_delta;
         this._duration = duration;
         this._criticalChange = critical_chance;
     }
@@ -56,12 +56,12 @@ class Attack {
         this._moveId = moveId;
     }
 
-    get energyData() {
-        return this._energyData;
+    get energyDelta() {
+        return this._energyDelta;
     }
 
-    set energyData(energyData) {
-        this._energyData = energyData;
+    set energyDelta(energyDelta) {
+        this._energyDelta = energyDelta;
     }
 
     get duration() {
@@ -87,7 +87,7 @@ class Attack {
             power: this._power,
             type: this._type,
             staminaLossScaler: this._staminaLossScaler,
-            energyData: this._energyData,
+            energyDelta: this._energyDelta,
             duration: this._duration,
             criticalChance: this._criticalChange
         })

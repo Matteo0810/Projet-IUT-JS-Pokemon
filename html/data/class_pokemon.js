@@ -26,6 +26,16 @@ class Pokemon {
         return types.type.map(type => Type.all_types[type]);
     }
 
+    getGeneration() {
+        // get all pokemon from all generations (it may be a global variable)
+        const generations = Object.values(generation).reduce((pc, acc) => {
+            pc.push(...acc);
+            return pc;
+        }, []);
+
+        // then find the pokemon by the generation
+        return generations.find(generation => generation.id === this.pokemonId)?.generation_number ?? "Génération inconnue";
+    }
 
 
     /*** Getters et Setters ***/
