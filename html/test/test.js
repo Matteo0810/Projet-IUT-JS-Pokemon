@@ -68,7 +68,7 @@ const TESTS = [
         action: () => {
             const type = prompt("Entrer le nom du type");
             console.log(`Liste des attaques pour le type ${type}`)
-            console.table(getAttackByType(attack));
+            console.table(getAttackByType(type));
         }
     },
     {
